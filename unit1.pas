@@ -348,6 +348,7 @@ begin
   Label1.Caption + ''#13#10'' +
   Label2.Caption + ''#13#10'' +
   Label4.Caption + ''#13#10'' +
+  LabelDISK.Caption + ''#13#10'' +
 
   LabelPOPCNT.Caption + ''#13#10'' +
   LabelSSE3.Caption + ''#13#10'' +
