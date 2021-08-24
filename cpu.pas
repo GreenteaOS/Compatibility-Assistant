@@ -46,6 +46,7 @@ type
 
    TCPUExtInfo = record
        extOperation : cardinal;
+       moreOperation : cardinal;
        extOperationAvail : boolean;
        brandStringAvail : boolean;
        brandString : string;
@@ -84,6 +85,8 @@ const
     CPUID_OPR_PROC_FREQUENCY_INFO = $16;
 
     CPUID_OPR_EXTENDED_INFO = $80000000;
+    CPUID_OPR_EXTENDED_INFO_MORE = $80000001;
+
     CPUID_OPR_BRAND_INFO_AVAIL = $80000004;
     CPUID_OPR_BRAND_INFO_0 = $80000002;
     CPUID_OPR_BRAND_INFO_1 = $80000003;
@@ -97,7 +100,7 @@ const
  *
  * @return boolean true if CPUID supported
  *}
-function TCpu.cpuidSupported() : boolean;
+function TCpuIdentifier.cpuidSupported() : boolean;
 var supported:boolean;
 begin
     asm
@@ -113,7 +116,7 @@ begin
        mov ecx, eax
 
        //change bit 21
-       xor rax, CPUID_BIT
+       xor eax, CPUID_BIT
 
        //copy EAX -> EFLAGS
        push eax
@@ -146,7 +149,7 @@ end;
 * Run CPUID instruction
 * @param cardinal operation store code for operation to be performed
 *}
-function TCpu.cpuidExec(const operation : cardinal) : TCPUIDResult;
+function TCpuIdentifier.cpuidExec(const operation : cardinal) : TCPUIDResult;
 var tmpEax, tmpEbx, tmpEcx, tmpEdx : cardinal;
 begin
     asm
@@ -288,6 +291,9 @@ begin
     begin
         exit;
     end;
+
+    res := cpuidExec(CPUID_OPR_EXTENDED_INFO_MORE);
+    result.moreOperation := res.ecx;
 
     res := cpuidExec(CPUID_OPR_EXTENDED_INFO);
     result.extOperation := res.eax;
@@ -455,6 +461,12 @@ begin
        'TM'           : result := ((res.edx and $20000000) = $20000000);
        //'reserved'   : result := ((res.edx and $40000000) = $40000000);
        'PBE'          : result := ((res.edx and $80000000) = $80000000);
+    end;
+
+    res := cpuidExec(CPUID_OPR_EXTENDED_INFO_MORE);
+    case feature of
+       'SAHF'          : result := ((res.ecx and $1) = $1);
+       'PREFETCHW'          : result := ((res.ecx and $100) = $100);
     end;
 end;
 
