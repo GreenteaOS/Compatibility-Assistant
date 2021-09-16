@@ -9,6 +9,7 @@ object Form1: TForm1
   ClientHeight = 354
   ClientWidth = 529
   DesignTimePPI = 120
+  Position = poScreenCenter
   LCLVersion = '2.0.12.0'
   object Button1: TButton
     Left = 144
@@ -22,7 +23,7 @@ object Form1: TForm1
   object Label1: TLabel
     Left = 8
     Height = 20
-    Top = 72
+    Top = 48
     Width = 512
     Alignment = taCenter
     AutoSize = False
@@ -32,7 +33,7 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 8
     Height = 20
-    Top = 96
+    Top = 72
     Width = 512
     Alignment = taCenter
     AutoSize = False
@@ -125,7 +126,7 @@ object Form1: TForm1
   object Label4: TLabel
     Left = 8
     Height = 20
-    Top = 120
+    Top = 96
     Width = 512
     Alignment = taCenter
     AutoSize = False
@@ -157,8 +158,8 @@ object Form1: TForm1
   object Label7: TLabel
     Left = 8
     Height = 20
-    Hint = 'Also checks POPCNT support'
-    Top = 48
+    Hint = 'Also checks some CPUID'
+    Top = 24
     Width = 512
     Alignment = taCenter
     AutoSize = False
@@ -170,7 +171,7 @@ object Form1: TForm1
   object LabelSSE3: TLabel
     Left = 8
     Height = 20
-    Top = 144
+    Top = 120
     Width = 102
     Alignment = taCenter
     AutoSize = False
@@ -180,7 +181,7 @@ object Form1: TForm1
   object LabelPOPCNT: TLabel
     Left = 112
     Height = 20
-    Top = 144
+    Top = 120
     Width = 100
     Alignment = taCenter
     AutoSize = False
@@ -190,7 +191,7 @@ object Form1: TForm1
   object LabelCX16: TLabel
     Left = 214
     Height = 20
-    Top = 144
+    Top = 120
     Width = 100
     Alignment = taCenter
     AutoSize = False
@@ -200,7 +201,7 @@ object Form1: TForm1
   object LabelSAHF: TLabel
     Left = 316
     Height = 20
-    Top = 144
+    Top = 120
     Width = 100
     Alignment = taCenter
     AutoSize = False
@@ -210,6 +211,31 @@ object Form1: TForm1
   object LabelPF: TLabel
     Left = 418
     Height = 20
+    Hint = 'Optional feature'
+    Top = 120
+    Width = 102
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '...'
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object LabelDISK: TLabel
+    Left = 8
+    Height = 20
+    Top = 168
+    Width = 512
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '...'
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object LabelSSE4_1: TLabel
+    Left = 8
+    Height = 20
     Top = 144
     Width = 102
     Alignment = taCenter
@@ -217,11 +243,48 @@ object Form1: TForm1
     Caption = '...'
     ParentColor = False
   end
-  object LabelDISK: TLabel
-    Left = 8
+  object LabelSSE4_2: TLabel
+    Left = 112
     Height = 20
-    Top = 168
-    Width = 512
+    Top = 144
+    Width = 100
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '...'
+    ParentColor = False
+  end
+  object LabelNX: TLabel
+    Left = 214
+    Height = 20
+    Hint = 'Optional feature'
+    Top = 144
+    Width = 100
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '...'
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object LabelAVX: TLabel
+    Left = 316
+    Height = 20
+    Hint = 'Optional feature'
+    Top = 144
+    Width = 100
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '...'
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object LabelPDPE1GB: TLabel
+    Left = 418
+    Height = 20
+    Hint = 'Optional feature'
+    Top = 144
+    Width = 102
     Alignment = taCenter
     AutoSize = False
     Caption = '...'

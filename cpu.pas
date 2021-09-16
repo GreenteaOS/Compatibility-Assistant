@@ -465,8 +465,13 @@ begin
 
     res := cpuidExec(CPUID_OPR_EXTENDED_INFO_MORE);
     case feature of
-       'SAHF'          : result := ((res.ecx and $1) = $1);
-       'PREFETCHW'          : result := ((res.ecx and $100) = $100);
+       // ECX
+       'SAHF'         : result := ((res.ecx and $1) = $1);
+       'PREFETCHW'    : result := ((res.ecx and $100) = $100);
+
+       // EDX
+       'NX'           : result := ((res.edx and $100000) = $100000);
+       'PDPE1GB'      : result := ((res.edx and $4000000) = $4000000);
     end;
 end;
 

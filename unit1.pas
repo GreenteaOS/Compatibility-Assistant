@@ -17,8 +17,11 @@ type
     Button2: TButton;
     Image1: TImage;
     Label1: TLabel;
+    LabelNX: TLabel;
     LabelDISK: TLabel;
     LabelCX16: TLabel;
+    LabelPDPE1GB: TLabel;
+    LabelSSE4_2: TLabel;
     LabelSAHF: TLabel;
     LabelPF: TLabel;
     Label2: TLabel;
@@ -27,8 +30,10 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    LabelAVX: TLabel;
     LabelSSE3: TLabel;
     LabelPOPCNT: TLabel;
+    LabelSSE4_1: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Image1Click(Sender: TObject);
@@ -326,6 +331,33 @@ begin
   LabelPF.Color := clMoneyGreen
   else LabelPF.Color := clCream;
   LabelPF.Caption := 'PREFETCHW';
+
+  // ---
+
+  if processor.hasFeature('SSE4_1') then
+  LabelSSE4_1.Color := clMoneyGreen
+  else LabelSSE4_1.Color := clRed;
+  LabelSSE4_1.Caption := 'SSE4_1';
+
+  if processor.hasFeature('SSE4_2') then
+  LabelSSE4_2.Color := clMoneyGreen
+  else LabelSSE4_2.Color := clRed;
+  LabelSSE4_2.Caption := 'SSE4_2';
+
+  if processor.hasFeature('NX') then
+  LabelNX.Color := clMoneyGreen
+  else LabelNX.Color := clCream;
+  LabelNX.Caption := 'NX';
+
+  if processor.hasFeature('AVX') then
+  LabelAVX.Color := clMoneyGreen
+  else LabelAVX.Color := clCream;
+  LabelAVX.Caption := 'AVX';
+
+  if processor.hasFeature('PDPE1GB') then
+  LabelPDPE1GB.Color := clMoneyGreen
+  else LabelPDPE1GB.Color := clCream;
+  LabelPDPE1GB.Caption := 'PDPE1GB';
 
   // TODO UEFI/GPT
 

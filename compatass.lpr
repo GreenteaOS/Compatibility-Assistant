@@ -14,7 +14,7 @@ uses
 
 begin
   RequireDerivedFormResource:=True;
-  Application.Title:='GOS Compat';
+  Application.Title:='Greentea OS Compatibility Assistant';
   Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
