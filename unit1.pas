@@ -17,6 +17,7 @@ type
     Button2: TButton;
     Image1: TImage;
     Label1: TLabel;
+    LabelResult: TLabel;
     LabelNX: TLabel;
     LabelDISK: TLabel;
     LabelCX16: TLabel;
@@ -49,7 +50,7 @@ var
 
 implementation
 
-uses cpu;
+uses cpu, LCLIntf;
 
 {$R *.lfm}
 
@@ -263,23 +264,31 @@ var
   w64: boolean;
   mem: uint64;
   processor : ICpuIdentifier;
+  bad: boolean;
 
+  procedure red(text: TLabel);
+  begin
+    text.Color := clRed;
+    bad := true;
+  end;
 begin
   cpus := GetCPUCount();
   w64 := IsWindows64;
   mem := GetSystemMem;
   processor := TCpuIdentifier.Create();
+  bad := false;
 
   Label1.Caption :='CPU threads count is ' + IntToStr(cpus);
-  Label1.Color := clRed;
   if cpus > 1 then
-     Label1.Color := clMoneyGreen;
+     Label1.Color := clMoneyGreen
+  else red(Label1);
 
   if w64 then begin
      Label2.Color := clMoneyGreen;
+     // red(Label2); // Uncomment to simulate failure
      Label2.Caption := 'CPU is 64-bit';
   end else begin
-     Label2.Color := clRed;
+     red(Label2);
      Label2.Caption := 'CPU is 32-bit';
   end;
 
@@ -288,7 +297,7 @@ begin
   if mem > 1 then begin
      Label4.Color := clMoneyGreen;
   end else begin
-     Label4.Color := clRed;
+     red(Label4);
   end;
 
   Label4.Caption := 'RAM is ' + FormatFloat('###.##', mem) + ' GB';
@@ -301,7 +310,7 @@ begin
 
   if processor.hasFeature('x2APIC') or processor.hasFeature('APIC') then
   Label7.Color := clMoneyGreen
-  else Label7.Color := clRed;
+  else red(Label7);
 
   Label7.Hint := reportAllSupportedFeatures(processor);
 
@@ -309,22 +318,22 @@ begin
 
   if processor.hasFeature('POPCNT') then
   LabelPOPCNT.Color := clMoneyGreen
-  else LabelPOPCNT.Color := clRed;
+  else red(LabelPOPCNT);
   LabelPOPCNT.Caption := 'POPCNT';
 
   if processor.hasFeature('SSE3') then
   LabelSSE3.Color := clMoneyGreen
-  else LabelSSE3.Color := clRed;
+  else red(LabelSSE3);
   LabelSSE3.Caption := 'SSE3';
 
   if processor.hasFeature('CMPXCHG16B') then
   LabelCX16.Color := clMoneyGreen
-  else LabelCX16.Color := clRed;
+  else red(LabelCX16);
   LabelCX16.Caption := 'CMPXCHG16B';
 
   if processor.hasFeature('SAHF') then
   LabelSAHF.Color := clMoneyGreen
-  else LabelSAHF.Color := clRed;
+  else red(LabelSAHF);
   LabelSAHF.Caption := 'SAHF';
 
   if processor.hasFeature('PREFETCHW') then
@@ -336,12 +345,12 @@ begin
 
   if processor.hasFeature('SSE4_1') then
   LabelSSE4_1.Color := clMoneyGreen
-  else LabelSSE4_1.Color := clRed;
+  else red(LabelSSE4_1);
   LabelSSE4_1.Caption := 'SSE4_1';
 
   if processor.hasFeature('SSE4_2') then
   LabelSSE4_2.Color := clMoneyGreen
-  else LabelSSE4_2.Color := clRed;
+  else red(LabelSSE4_2);
   LabelSSE4_2.Caption := 'SSE4_2';
 
   if processor.hasFeature('NX') then
@@ -366,11 +375,20 @@ begin
      LabelDISK.Color := clMoneyGreen;
      LabelDISK.Caption := 'GPT partition scheme';
   end else begin
-     LabelDISK.Color := clRed;
+     red(LabelDISK);
      LabelDISK.Caption := 'MBR partition scheme';
   end;
 
+  Button1.Visible := false;
+  LabelResult.Visible := true;
 
+  if bad then begin
+      LabelResult.Color := $009D9DFF;
+      LabelResult.Caption := 'Your device is too old to run Greentea OS';
+  end else begin
+      LabelResult.Color := $00DADAB6;
+      LabelResult.Caption := 'Your device is compatible with Greentea OS';
+  end;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -393,8 +411,10 @@ begin
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
+var
+  found: boolean;
 begin
-
+  found := OpenURL('https://greenteaos.github.io');
 end;
 
 procedure TForm1.Label6Click(Sender: TObject);

@@ -8,16 +8,20 @@ object Form1: TForm1
   Caption = 'Greentea OS Compatibility Assistant'
   ClientHeight = 354
   ClientWidth = 529
+  Color = clWhite
   DesignTimePPI = 120
   Position = poScreenCenter
   LCLVersion = '2.0.12.0'
   object Button1: TButton
     Left = 144
     Height = 48
+    Hint = 'This will take just a second'
     Top = 200
     Width = 240
     Caption = 'Test compatibility now!'
     OnClick = Button1Click
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 0
   end
   object Label1: TLabel
@@ -51,11 +55,14 @@ object Form1: TForm1
     TabOrder = 1
   end
   object Image1: TImage
+    Cursor = crHandPoint
     Left = 472
     Height = 53
+    Hint = 'https://greenteaos.github.io'
     Top = 301
     Width = 57
     OnClick = Image1Click
+    ParentShowHint = False
     Picture.Data = {
       1754506F727461626C654E6574776F726B47726170686963DC06000089504E47
       0D0A1A0A0000000D49484452000000300000003008060000005702F987000006
@@ -114,14 +121,17 @@ object Form1: TForm1
       0DE6728B541AC455AC0A4ECAA2C38ADD9722B1BB513A8F9E0D2E79E491471E79
       FC7FE1BFA5DAAEBD88D905A50000000049454E44AE426082
     }
+    ShowHint = True
   end
   object Label3: TLabel
     Left = 0
     Height = 20
     Top = 308
-    Width = 364
-    Caption = ' Greentea OS Compatibility Assistant is a Free Software'
+    Width = 453
+    Caption = ' Greentea OS Compatibility Assistant is a Free Open Source Software'
+    Font.Color = clGray
     ParentColor = False
+    ParentFont = False
   end
   object Label4: TLabel
     Left = 8
@@ -137,9 +147,11 @@ object Form1: TForm1
     Left = 0
     Height = 20
     Top = 331
-    Width = 409
-    Caption = ' Uses zamronypj/cpuid under GNU General Public License v3.0'
+    Width = 216
+    Caption = ' GNU General Public License v3.0'
+    Font.Color = clGray
     ParentColor = False
+    ParentFont = False
   end
   object Label6: TLabel
     Left = 152
@@ -289,6 +301,20 @@ object Form1: TForm1
     AutoSize = False
     Caption = '...'
     ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object LabelResult: TLabel
+    Left = 8
+    Height = 32
+    Top = 208
+    Width = 512
+    Alignment = taCenter
+    AutoSize = False
+    Font.Color = clWhite
+    Font.Height = -23
+    ParentColor = False
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
   end
