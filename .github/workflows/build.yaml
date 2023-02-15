@@ -1,0 +1,12 @@
+name: Build
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-21.04
+
+    steps:
+      - name: Download Lazarus
+        run: |
+          echo Hellur
