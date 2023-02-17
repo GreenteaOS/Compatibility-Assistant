@@ -6,10 +6,28 @@ on:
 
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-22.04
+    name: Build Artifact
+    runs-on: windows-2022
 
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1 # Let's save some space
+        
       - name: Download Lazarus
         run: |
-          echo Hellur
+          curl --retry 5 -o lazarus-install.exe -L https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%2032%20bits/Lazarus%202.2.4/lazarus-2.2.4-fpc-3.2.2-win32.exe
+          
+      - name: Install Lazarus
+        run: |
+          Start-Process -Wait -NoNewWindow -FilePath lazarus-install.exe -ArgumentList "/VERYSILENT /DIR=C:\Lazarus /SP-"
+          
+      - name: Build with Lazarus
+        run: |
+          C:\Lazarus\lazbuild.exe --os=win32 --cpu=i386 --build-mode=Default --recursive compatass.lpi
+         
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+         name: Compatibility-Assistant-${{ github.sha }}
+         path: "Greentea OS Compat v*.exe"
