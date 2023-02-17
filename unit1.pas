@@ -146,14 +146,24 @@ var features : array [startFeatureIndex..endFeatureIndex] of string = (
 
     i:integer;
     tmp:string;
+    width:integer;
 begin
    result:='';
+   width:=0;
    for i := startFeatureIndex to endFeatureIndex do
    begin
       tmp:= supportedFeature(cpuIntf, features[i]);
       if (length(tmp) > 0) then
       begin
+        //if i mod 10 = 0 then
+        // result:= result + tmp + ''#13#10''
+        //else
          result:= result + tmp + ' ';
+         width := width + length(tmp) + 1;
+        if width > 40 then begin
+          width := 0;
+          result:= result + ''#13#10''
+        end;
       end;
    end;
 end;
